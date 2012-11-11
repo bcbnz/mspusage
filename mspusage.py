@@ -164,6 +164,11 @@ for line in symtab:
         elif name[:6] == '__isr_':
             vectors[int(name[6:])] = value
 
+        # RAM detail which seems to be be kept in .text if there is no .data
+        # entries.
+        elif name.lower() == '__data_start':
+            ramend = value
+
     # Vector section: only used as a marker for the end of flash.
     elif section in ('.vectors'):
         if name == '_vectors_end':
